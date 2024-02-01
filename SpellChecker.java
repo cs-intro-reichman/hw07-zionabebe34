@@ -6,16 +6,40 @@ public class SpellChecker {
 		String word = args[0];
 		int threshold = Integer.parseInt(args[1]);
 		String[] dictionary = readDictionary("dictionary.txt");
-		String correction = spellChecker(word, threshold, dictionary);
-		System.out.println(correction);
+		//String correction = spellChecker(word, threshold, dictionary);
+		//System.out.println(correction);
+		int lev = levenshtein("hey" , "bey"); 
+		System.out.println(lev); 
 	}
 
 	public static String tail(String str) {
-		// Your code goes here
+		String s1 = "";
+		if ( str.length() == 1) {
+			return s1; 
+		} else {
+			for ( int i = 0; i < str.length(); i++) {
+				s1+=(str.charAt(i+1)); 
+			}
+		}
+		return s1; 
 	}
 
 	public static int levenshtein(String word1, String word2) {
-		// Your code goes here
+		if ( word2.length() == 0) {
+			return word1.length(); 
+
+		} else if (word1.length() == 0) {
+			return word2.length();
+
+		} else if (word1.charAt(0) == word2.charAt(0)) {
+			return levenshtein( tail(word1) , tail(word2));
+
+		} else {
+			int min = Math.min( levenshtein(tail(word1), word2) , levenshtein(word1,tail(word2)) ) ; 
+			return  1 + Math.min(min,levenshtein(tail(word1) , tail(word2))); 
+		}
+
+		
 	}
 
 	public static String[] readDictionary(String fileName) {
@@ -23,13 +47,29 @@ public class SpellChecker {
 
 		In in = new In(fileName);
 
-		// Your code here
+		String str = ""; 
+
+		for ( int i = 0; i < 3000; i++) {
+			str = in.readLine(); 
+			dictionary[i] = str; 
+		}
 
 		return dictionary;
 	}
 
 	public static String spellChecker(String word, int threshold, String[] dictionary) {
-		// Your code goes here
+		int  min = 1 + threshold; 
+		String correct = word; 
+
+		for ( int i = 0; i < dictionary.length; i++) {
+			int distance = levenshtein(word, dictionary[i]); 
+			if ( distance < min) {
+				min = distance; 
+				correct = dictionary[i]; 
+
+			}
+		}
+		return correct; 
 	}
 
 }
