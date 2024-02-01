@@ -3,13 +3,18 @@ public class SpellChecker {
 
 
 	public static void main(String[] args) {
-		String word = args[0];
-		int threshold = Integer.parseInt(args[1]);
+		//String word = args[0];
+		//int threshold = Integer.parseInt(args[1]);
 		String[] dictionary = readDictionary("dictionary.txt");
 		//String correction = spellChecker(word, threshold, dictionary);
 		//System.out.println(correction);
+		//System.out.println(tail("hey")); 
 		int lev = levenshtein("hey" , "bey"); 
-		System.out.println(lev); 
+		System.out.println(lev + " ----- the first test -----"); 
+
+		String spell = spellChecker("hell0" , 1 , dictionary); 
+		System.out.println(spell + " ------ thre second test----"); 
+
 	}
 
 	public static String tail(String str) {
@@ -17,14 +22,17 @@ public class SpellChecker {
 		if ( str.length() == 1) {
 			return s1; 
 		} else {
-			for ( int i = 0; i < str.length(); i++) {
+			for ( int i = 0; i < str.length() - 1 ; i++) {
 				s1+=(str.charAt(i+1)); 
 			}
 		}
-		return s1; 
+		return s1;
 	}
 
 	public static int levenshtein(String word1, String word2) {
+		word1 = word1.toLowerCase();
+		word2 = word2.toLowerCase();
+
 		if ( word2.length() == 0) {
 			return word1.length(); 
 
