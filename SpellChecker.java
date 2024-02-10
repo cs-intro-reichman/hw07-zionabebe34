@@ -21,6 +21,7 @@ public class SpellChecker {
 		if (str.length() == 1) {
 			return s1;
 		} else {
+			// #feedback - you can use substring to take the string without its first character.
 			for (int i = 0; i < str.length() - 1; i++) {
 				s1 += (str.charAt(i + 1));
 			}
