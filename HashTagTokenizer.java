@@ -46,10 +46,14 @@ public class HashTagTokenizer {
         for (int i = 1; i <= N; i++) {
         	
 
+		// #feedback - no need to compare to "true", since existInDictionary already returns the boolean (true or false).
+		// #feedback - you should use toLowerCase to also support upper case letters.
         	if (existInDictionary(hashtag.substring(0,i)  , dictionary) == true) {
         		System.out.println(hashtag.substring(0,i));
         		breakHashTag( hashtag.substring(i) , dictionary);
+			// #feedback - you should break from the for loop here.
         	} else { 
+			// #feedback - "else" with only the "continue" command is usually redundant and can be removed.
 				continue;
         		
         	}
